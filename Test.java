@@ -33,6 +33,10 @@ public class Test {
             Thread.sleep(70);
             termGrid.text(i - 1, 1, ".............", Color.Green, Color.Grey);
             termGrid.text(i, 1, "Hello, world!", Color.NavyBlue, Color.Silver);
+            termGrid.set(20, i - 1, '.', Color.Green, Color.Grey);
+            termGrid.text(20, i, "<>", Color.HotPink3, Color.Grey);
+            termGrid.set(20, i + 4, '.', Color.Green, Color.Grey);
+            termGrid.text(20, i + 5, "[]", Color.Grey, Color.Yellow2);
             termGrid.draw();
         }
         termGrid.reset();
