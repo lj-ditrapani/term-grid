@@ -4,6 +4,7 @@ Terminal Grid
 
 Treat the terminal like a grid of colored (foreground and background) text cells.
 
+![Example](termgrid.gif)
 
 Develop
 -------
@@ -21,4 +22,4 @@ Documentation
 Visual test
 -----------
 
-sh test.sh
+    sh test.sh
