@@ -5,13 +5,11 @@ public class TermGridImpl implements TermGrid {
     private final Printer printer;
     private final int height;
     private final int width;
-    private int xLoc = 0;
-    private int yLoc = 0;
     static private String clear = "\u001b[2J";
     static private String init = "\u001B[?25l\u001b[0;0H";
     static private String reset = "\u001b[0m\u001B[?25h";
 
-    public TermGridImpl(int height, int width, Printer printer) {
+    TermGridImpl(int height, int width, Printer printer) {
         this.printer = printer;
         this.height = height;
         this.width = width;

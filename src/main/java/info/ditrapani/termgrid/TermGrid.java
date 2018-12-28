@@ -1,23 +1,30 @@
 package info.ditrapani.termgrid;
 
 /**
- * Represents the terminal as a 2D grid.
+ * Represents the terminal as a 2D grid with 256 colors.
  *
  * <p>
  * Typical usage migth have a setup, a main loop, and a shutdown.
+ * </p>
  * <p>
  * The setup would call clear() to clean up the screen.
- * <p>
- * Main loop:
+ * </p>
+ * Example main loop:
  *     <ul>
  *     <li>User input/other event</li>
  *     <li>Business logic</li>
  *     <li>Update grid with several calls to set() and/or text() methods</li>
- *     <li>Call draw() to display the new grid state on the terminal
+ *     <li>Call draw() to display the new grid state on the terminal</li>
  *     <li>Repeat</li>
  *     </ul>
+ *
  * <p>
  * Shutdown:  call reset() to return the terminal to normal.
+ * </p>
+ *
+ * <p>
+ * A color byte is an index into one of the 256 ANSI Xterm colors
+ * <a href="https://jonasjacek.github.io/colors/">https://jonasjacek.github.io/colors/</a></p>
  */
 public interface TermGrid {
     /**
