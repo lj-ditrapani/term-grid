@@ -1,70 +1,62 @@
 package info.ditrapani.termgrid;
 
-public class TermGrid {
-    private final Cell[][] grid;
-    private final Printer printer;
-    private final int height;
-    private final int width;
-    private int xLoc = 0;
-    private int yLoc = 0;
-    static private String clear = "\u001b[2J";
-    static private String init = "\u001B[?25l\u001b[0;0H";
-    static private String reset = "\u001b[0m\u001B[?25h";
+/**
+ * Represents the terminal as a 2D grid.
+ *
+ * <p>
+ * Typical usage migth have a setup, a main loop, and a shutdown.
+ * <p>
+ * The setup would call clear() to clean up the screen.
+ * <p>
+ * Main loop:
+ *     <ul>
+ *     <li>User input/other event</li>
+ *     <li>Business logic</li>
+ *     <li>Update grid with several calls to set() and/or text() methods</li>
+ *     <li>Call draw() to display the new grid state on the terminal
+ *     <li>Repeat</li>
+ *     </ul>
+ * <p>
+ * Shutdown:  call reset() to return the terminal to normal.
+ */
+public interface TermGrid {
+    /**
+     * Clears the screen with the current background color.
+     * Literrally prints "\\u001b[2J".
+     */
+    public void clear();
 
-    public TermGrid(int height, int width, Printer printer) {
-        this.printer = printer;
-        this.height = height;
-        this.width = width;
-        this.grid = new Cell[height][width];
-        for (Cell[] row: grid) {
-            for (int i = 0; i < row.length; i++) {
-                row[i] = new Cell('.', Color.Green, Color.Grey);
-            }
-        }
-    }
+    /**
+     * Draw the current state of the grid to the terminal.
+     */
+    public void draw();
 
-    public TermGrid(int height, int width) {
-        this(height, width, new PrinterImpl());
-    }
+    /**
+     * Reset colors and re-enable the cursor.
+     * Literrally prints "\\u001b[0m\\u001B[?25h"
+     */
+    public void reset();
 
-    public void set(int y, int x, char c, byte fg, byte bg) {
-        Cell cell = grid[y][x];
-        cell.c = c;
-        cell.fg = fg;
-        cell.bg = bg;
-    }
+    /**
+     * Set a cell in the grid.
+     * You must call draw() to see the change in the terminal.
+     * @param y 0-based row index into grid
+     * @param x 0-based column index into grid
+     * @param c character to set in cell
+     * @param fg foreground color to set in cell
+     * @param bg background color to set in cell
+     */
+    public void set(int y, int x, char c, byte fg, byte bg);
 
-    public void text(int y, int x, String s, byte fg, byte bg) {
-        int currX = x;
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            set(y, currX, c, fg, bg);
-            ++currX;
-        }
-    }
-
-    public void draw() {
-        StringBuilder sb = new StringBuilder(10000);
-        sb.append(init);
-        for (Cell[] row: grid) {
-            for (Cell cell: row) {
-                sb.append("\u001b[38;5;");
-                sb.append(cell.fg & 0xFF);
-                sb.append("m\u001b[48;5;");
-                sb.append(cell.bg & 0xFF);
-                sb.append('m');
-                sb.append(cell.c);
-            }
-            sb.append('\n');
-        }
-        printer.print(sb.toString());
-    }
-
-    public void clear() {
-        printer.print(clear);
-    }
-
-    public void reset() {
-        printer.print(reset);
-    }
+    /**
+     * Set a sequence of cells of a row in the grid.
+     * Effects n cells where n is the length of text.
+     * You must call draw() to see the change in the terminal.
+     * @param y 0-based row index into grid
+     * @param x 0-based column index into grid
+     * @param text text to write in row y starting in column x
+     * @param fg foreground color to set to each cell for the text
+     * @param bg background color to set to each cell in under text
+     */
+    public void text(int y, int x, String text, byte fg, byte bg);
 }

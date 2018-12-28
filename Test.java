@@ -1,8 +1,12 @@
-package info.ditrapani.termgrid;
+package info.ditrapani.termgridtest;
+
+import info.ditrapani.termgrid.Color;
+import info.ditrapani.termgrid.TermGrid;
+import info.ditrapani.termgrid.TermGridImpl;
 
 public class Test {
     public static void main(String[] args) throws InterruptedException {
-        TermGrid termGrid = new TermGrid(10, 20);
+        TermGrid termGrid = new TermGridImpl(10, 20);
         termGrid.clear();
         termGrid.draw();
         Thread.sleep(400);
@@ -28,7 +32,7 @@ public class Test {
 
         termGrid.reset();
         termGrid.clear();
-        termGrid = new TermGrid(40, 80);
+        termGrid = new TermGridImpl(40, 80);
         for (int i = 1; i < 20; i++) {
             Thread.sleep(70);
             termGrid.text(i - 1, 1, ".............", Color.Green, Color.Grey);
