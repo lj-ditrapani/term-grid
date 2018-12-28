@@ -18,7 +18,7 @@ public class TermGrid {
         this.grid = new Cell[height][width];
         for (Cell[] row: grid) {
             for (int i = 0; i < row.length; i++) {
-                row[i] = new Cell('%', Color.Maroon, Color.Green);
+                row[i] = new Cell('.', Color.Green, Color.Grey);
             }
         }
     }
@@ -34,12 +34,13 @@ public class TermGrid {
         cell.bg = bg;
     }
 
-    public void putc(char c, int y, int x, byte fg, byte bg) {
-        printer.print(String.format("\u001b[38;5;%dm\u001b[48;5;%dm%c", fg & 0xFF, bg & 0xFF, c));
-    }
-
-    public void puts(String s, int y, int x) {
-        printer.print(s);
+    public void text(int y, int x, String s, byte fg, byte bg) {
+        int currX = x;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            set(y, currX, c, fg, bg);
+            ++currX;
+        }
     }
 
     public void draw() {
