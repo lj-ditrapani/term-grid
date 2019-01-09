@@ -1,5 +1,7 @@
 - formatter gradle plugin
 - static analysis gradle plugin
+    - spotbugs
+- kotlin: ktlint & detekt
 - fail fast, throw exceptions for out of bounds
     - constructors: height & width must be positive (& non-zero)
     - set & text:

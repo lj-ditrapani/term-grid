@@ -25,13 +25,16 @@ Visual test
     sh test.sh
 
 
+Format
+------
+
+    ./gradlew goJF
+
+
 Example: Game of life in Kotlin
 -------------------------------
 
     kotlinc -cp build/libs/term-grid.jar -script game-of-life.kts
-    kotlinc \
-    -cp build/libs/term-grid.jar \
-    -script game-of-life.kts
 
 
 ![Example](game-of-life.gif)
