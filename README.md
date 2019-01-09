@@ -31,6 +31,12 @@ Format
     ./gradlew goJF
 
 
+Static analysis
+---------------
+
+    ./gradlew check
+
+
 Example: Game of life in Kotlin
 -------------------------------
 

@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'com.github.sherter.google-java-format' version '0.8'
+    id "com.github.spotbugs" version "1.6.9"
 }
 
 repositories {
