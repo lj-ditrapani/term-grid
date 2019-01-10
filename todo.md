@@ -1,3 +1,3 @@
+- refactor common bounds checking code
 - publish jar on maven central
 - kotlin: ktlint & detekt
-- refactor common bounds checking code
