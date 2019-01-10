@@ -1,7 +1,3 @@
-- fail fast, throw exceptions for out of bounds
-    - constructors: height & width must be positive (& non-zero)
-    - set & text:
-        - y & x must be non-negative & less than heigt/width respectively
-    - text: text length + x must be less than width
 - publish jar on maven central
 - kotlin: ktlint & detekt
+- refactor common bounds checking code
