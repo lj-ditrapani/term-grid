@@ -10,12 +10,8 @@ public class TermGridImpl implements TermGrid {
   private static String reset = "\u001b[0m\u001B[?25h";
 
   TermGridImpl(int height, int width, Printer printer) {
-    if (height < 1) {
-      throw new IllegalArgumentException("Height must be positive.");
-    }
-    if (width < 1) {
-      throw new IllegalArgumentException("Width must be positive.");
-    }
+    require(height >= 1, "Height must be positive.");
+    require(width >= 1, "Width must be positive.");
     this.height = height;
     this.width = width;
     this.printer = printer;
@@ -57,12 +53,7 @@ public class TermGridImpl implements TermGrid {
   }
 
   public void set(int y, int x, char c, byte fg, byte bg) {
-    if (y < 0 || y >= height) {
-      throw new IllegalArgumentException("y index must by >= 0 and < grid height");
-    }
-    if (x < 0 || x >= width) {
-      throw new IllegalArgumentException("x index must by >= 0 and < grid width");
-    }
+    checkBounds(y, x);
     Cell cell = grid[y][x];
     cell.c = c;
     cell.fg = fg;
@@ -70,20 +61,24 @@ public class TermGridImpl implements TermGrid {
   }
 
   public void text(int y, int x, String text, byte fg, byte bg) {
-    if (y < 0 || y >= height) {
-      throw new IllegalArgumentException("y index must by >= 0 and < grid height");
-    }
-    if (x < 0 || x >= width) {
-      throw new IllegalArgumentException("x index must by >= 0 and < grid width");
-    }
-    if (x + text.length() > width) {
-      throw new IllegalArgumentException("x + text.length must be less than grid width");
-    }
+    checkBounds(y, x);
+    require(x + text.length() <= width, "x + text.length must be <= grid width");
     int currX = x;
     for (int i = 0; i < text.length(); i++) {
       char c = text.charAt(i);
       set(y, currX, c, fg, bg);
       ++currX;
+    }
+  }
+
+  private void checkBounds(int y, int x) {
+    require(y >= 0 && y < height, "y index must by >= 0 and < grid height");
+    require(x >= 0 && x < width, "x index must by >= 0 and < grid width");
+  }
+
+  private void require(boolean b, String message) {
+    if (!b) {
+      throw new IllegalArgumentException(message);
     }
   }
 }
