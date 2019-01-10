@@ -10,7 +10,8 @@ Develop
 -------
 
     ./gradlew build
-    ./gradlew test
+    ./gradlew test -i
+    ./gradlew jacocoTestReport
 
 
 Documentation
